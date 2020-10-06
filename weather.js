@@ -4,8 +4,18 @@ function handleGeoError() {
   console.log('위치정보 가져올 수 없음');
 }
 
+function saveLocation(locationObj) {
+  localStorage.setItem(COORDS, JSON.stringify(locationObj));
+}
+
 function handleGeoSuccess(position) {
-  console.log(position);
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+  const locationObj = {
+    latitude,
+    longitude,
+  };
+  saveLocation(locationObj);
 }
 
 function askForCoords() {
@@ -24,3 +34,5 @@ function loadCoords() {
 function init() {
   loadCoords();
 }
+
+init();
