@@ -1,4 +1,6 @@
 const COORDS = 'coords';
+const API_KEY = '01e754f876ab9eaae68c23c5c11d884c';
+const $weather = document.querySelector('.js-weather');
 
 function handleGeoError() {
   console.log('위치정보 가져올 수 없음');
@@ -6,6 +8,16 @@ function handleGeoError() {
 
 function saveLocation(locationObj) {
   localStorage.setItem(COORDS, JSON.stringify(locationObj));
+}
+
+function getWeather(lat, lon) {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
+    .then(function (result) {
+      return result.json();
+    })
+    .then(function (json) {
+      $weather.innerHTML = `${json.main.temp}`;
+    });
 }
 
 function handleGeoSuccess(position) {
@@ -16,6 +28,7 @@ function handleGeoSuccess(position) {
     longitude,
   };
   saveLocation(locationObj);
+  getWeather(latitude, longitude);
 }
 
 function askForCoords() {
@@ -23,11 +36,12 @@ function askForCoords() {
 }
 
 function loadCoords() {
-  const loadedCords = localStorage.getItem(COORDS);
-  if (loadedCords === null) {
+  const loadedCoords = localStorage.getItem(COORDS);
+  if (loadedCoords === null) {
     askForCoords();
   } else {
-    // getWeather();
+    const parsedCoords = JSON.parse(loadedCoords);
+    getWeather(parsedCoords.latitude, parsedCoords.longitude);
   }
 }
 
