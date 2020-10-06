@@ -11,6 +11,7 @@
     <div class="js-clock">
       <h1>00:00</h1>
     </div>
+    <button class="open-modal">모달 열기</button>
 
     <form class="js-form form">
       <input type="text" placeholder="이름을 입력하세요." />
@@ -22,11 +23,18 @@
     </form>
     <ul class="js-toDoList"></ul>
     <span class="js-weather" style="color: white;"></span>
-
+    <div class="modal">
+      <div class="modal__overlay"></div>
+      <div class="modal__contents">
+        <h2>모달 떴다잉</h2>
+        <button class="close-modal">x</button>
+      </div>
+    </div>
     <script src="clock.js"></script>
     <script src="getting.js"></script>
     <script src="todo.js"></script>
     <script src="bg.js"></script>
     <script src="weather.js"></script>
+    <script src="modal.js"></script>
   </body>
 </html>
