@@ -1,21 +1,11 @@
 const COORDS = 'coords';
 
-function saveCoords(coordsObj) {
-  localStorage.setItem(COORDS, JSON.stringify(coordsObj));
+function handleGeoError() {
+  console.log('위치정보 가져올 수 없음');
 }
 
 function handleGeoSuccess(position) {
-  const latitude = position.coords.latitude;
-  const longitude = position.coords.longitude;
-  const coordsObj = {
-    latitude,
-    longitude,
-  };
-  saveCoords(coordsObj);
-}
-
-function handleGeoError() {
-  console.log("Can't get your location");
+  console.log(position);
 }
 
 function askForCoords() {
@@ -23,16 +13,14 @@ function askForCoords() {
 }
 
 function loadCoords() {
-  const loadedcoords = localStorage.getItem(COORDS);
-  if (loadedcoords === null) {
+  const loadedCords = localStorage.getItem(COORDS);
+  if (loadedCords === null) {
     askForCoords();
   } else {
-    // getWeather
+    // getWeather();
   }
 }
 
 function init() {
   loadCoords();
 }
-
-init();
